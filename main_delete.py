@@ -62,3 +62,14 @@ all_states = fs.all()
 print("All: {}".format(len(all_states.keys())))
 for state_key in all_states.keys():
     print(all_states[state_key])
+
+
+# Delete the new City
+fs.delete(new_city)
+
+
+# All States
+all_states = fs.all()
+print("All: {}".format(len(all_states.keys())))
+for state_key in all_states.keys():
+    print(all_states[state_key])

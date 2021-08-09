@@ -39,7 +39,7 @@ class DBStorage:
         """query on the database"""
 
         # n_list = [User, State, City, Amenity, Place, Review]
-        n_list = [State, City]
+        n_list = [State, City, User]
         n_dict = {}
         result = []
 
