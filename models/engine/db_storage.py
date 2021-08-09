@@ -41,15 +41,18 @@ class DBStorage:
         # n_list = [User, State, City, Amenity, Place, Review]
         n_list = [State, City]
         n_dict = {}
+        result = []
 
-        if cls is not None:
-            result = self.__session.query(cls).all()
+        if cls is None:
+            for eachClass in n_list:
+                result.extend(self.__session.query(eachClass).all())
         else:
-            result = self.__session.query(*n_list).all()
+            result = self.__session.query(cls).all()
 
         for r in result:
             id = r.__class__.__name__ + '.' + r.id
             n_dict[id] = r
+
         return(n_dict)
 
     def new(self, obj):
