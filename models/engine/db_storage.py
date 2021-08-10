@@ -38,8 +38,7 @@ class DBStorage:
     def all(self, cls=None):
         """query on the database"""
 
-        # n_list = [User, State, City, Amenity, Place, Review]
-        n_list = [State, City, User, Place]
+        n_list = [User, State, City, Amenity, Place, Review]
         n_dict = {}
         result = []
 
