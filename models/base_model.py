@@ -25,14 +25,19 @@ class BaseModel:
             self.updated_at = datetime.now()
 
         else:
-            del kwargs['__class__']
-            kwargs['updated_at'] = datetime.strptime(kwargs['updated_at'],
-                                                     '%Y-%m-%dT%H:%M:%S.%f')
-            kwargs['created_at'] = datetime.strptime(kwargs['created_at'],
-                                                     '%Y-%m-%dT%H:%M:%S.%f')
-
-            for item in kwargs:
+            if '__class__' in kwargs.keys():
+                del kwargs['__class__']
+                kwargs['updated_at'] = datetime.strptime(
+                    kwargs['updated_at'], '%Y-%m-%dT%H:%M:%S.%f')
+                kwargs['created_at'] = datetime.strptime(
+                    kwargs['created_at'], '%Y-%m-%dT%H:%M:%S.%f')
+            else:
+                setattr(self, 'id', str(uuid.uuid4()))
+                kwargs['updated_at'] = datetime.now()
+                kwargs['created_at'] = datetime.now()
+            for item in kwargs.items():
                 setattr(self, item[0], item[1])
+            print(self)
 
     def __str__(self):
         """Returns a string representation of the instance"""
