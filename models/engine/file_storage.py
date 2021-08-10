@@ -42,7 +42,6 @@ class FileStorage:
             id = obj.__class__.__name__ + '.' + obj.id
             if id in self.__objects.keys():
                 del(self.__objects[id])
-                self.save()
 
     def reload(self):
         """Loads storage dictionary from file"""

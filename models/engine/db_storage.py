@@ -66,7 +66,6 @@ class DBStorage:
         """ remove an object from the current session """
         if obj is not None:
             self.__session.delete(obj)
-            self.save()
 
     def reload(self):
         Base.metadata.create_all(self.__engine)
