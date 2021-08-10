@@ -2,6 +2,8 @@
 """This module defines a class to manage file storage for hbnb clone"""
 import json
 
+from sqlalchemy.orm.session import object_session
+
 
 class FileStorage:
     """This class manages storage of hbnb models in JSON format"""
@@ -13,11 +15,11 @@ class FileStorage:
         if cls is None:
             return FileStorage.__objects
         else:
-            new_dict = {}
-            for obj in FileStorage.__objects.items():
-                if obj[1].__class__.__name__ == cls:
-                    new_dict[0] = obj
-            return new_dict
+            dict_class = {}
+            for key, obj in FileStorage.__objects.items():
+                if isinstance(obj, cls):
+                    dict_class[key] = obj
+            return dict_class
 
     def new(self, obj):
         """Adds new object to storage dictionary"""
