@@ -37,7 +37,6 @@ class BaseModel:
                 kwargs['created_at'] = datetime.now()
             for item in kwargs.items():
                 setattr(self, item[0], item[1])
-            print(self)
 
     def __str__(self):
         """Returns a string representation of the instance"""
