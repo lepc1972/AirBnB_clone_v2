@@ -29,13 +29,11 @@ class FileStorage:
         """deletes obj from __objects if it’s inside
         if obj is equal to None, the method should not do anything
         """
-        if obj is None:
-            return
-
-        id = obj.__class__.__name__ + '.' + obj.id
-
-        if id in self.__objects.keys():
-            del(self.__objects[id])
+        if obj is not None:
+            id = obj.__class__.__name__ + '.' + obj.id
+            if id in self.__objects.keys():
+                del(self.__objects[id])
+                self.save()
 
     def reload(self):
         """Loads storage dictionary from file"""
