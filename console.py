@@ -2,6 +2,7 @@
 """ Console Module """
 import cmd
 import sys
+
 from models.base_model import BaseModel
 from models.__init__ import storage
 from models.user import User
@@ -129,18 +130,18 @@ class HBNBCommand(cmd.Cmd):
 
         # creates the new instance
         new_instance = HBNBCommand.classes[args[0]]()
-
+        type_data = {"number_rooms": int, "number_bathrooms": int,
+                     "max_guest": int,             "price_by_night": int,
+                     "latitude": float, "longitude": float}
         # adds the params to the instance
         for i in range(1, len(args)):
             item = args[i].split('=')
             attribute_name = item[0]
-            try:
-                prev_attr = getattr(new_instance, attribute_name)
-            except(AttributeError):
-                prev_attr = ""
-            if prev_attr is None:
-                prev_attr = ""
-            type_attr = type(prev_attr)
+            if attribute_name in type_data.keys():
+                type_attr = type_data[attribute_name]
+            else:
+                type_attr = str
+
             new_value = item[1].replace('_', ' ')
 
             if new_value.startswith('"'):
