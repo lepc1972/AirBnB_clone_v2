@@ -1,10 +1,13 @@
 #!/usr/bin/python3
-""" scripts that distributes a file to web 01 n 02 servers """
-import os
-from fabric.api import *
-from datetime import datetime
+"""
+script  of fabric, to distribute a file on our servers
+"""
 
-env.hosts = ["35.231.46.212", "54.175.152.17"]
+import os
+from datetime import datetime
+from fabric.api import *
+
+env.hosts = ["34.74.72.68", "54.196.204.208"]
 env.user = "ubuntu"
 
 
@@ -13,6 +16,7 @@ def do_pack():
         Return the tgz file if was correctly
         gernerated.
     """
+
     local("mkdir -p versions")
     date = datetime.now().strftime("%Y%m%d%H%M%S")
     file_path = "versions/web_static_{}.tgz".format(date)
@@ -26,23 +30,24 @@ def do_pack():
 
 def do_deploy(archive_path):
     """
-        put a file in our servers
+        Distribute our file into servers
     """
-    if not os.path.exists(archive_path):
-        return False
-    saved_file = archive_path[9:]
-    nv = "/data/web_static/releases/" + saved_file[:-4]
-    saved_file = "/tmp/" + saved_file
-    put(archive_path, "/tmp/")
-    run("sudo mkdir -p {}".format(nv))
-    run("sudo tar -xzf {} -C {}/".format(saved_file,
-                                         nv))
-    run("sudo rm {}".format(saved_file))
-    run("sudo mv {}/web_static/* {}".format(nv,
-                                            nv))
-    run("sudo rm -rf {}/web_static".format(nv))
-    run("sudo rm -rf /data/web_static/current")
-    run("sudo ln -s {} /data/web_static/current".format(nv))
+    if os.path.exists(archive_path):
+        storedfile = archive_path[9:]
+        nv = "/data/web_static/releases/" + storedfile[:-4]
+        storedfile = "/tmp/" + storedfile
+        put(archive_path, "/tmp/")
+        run("sudo mkdir -p {}".format(nv))
+        run("sudo tar -xzf {} -C {}/".format(storedfile,
+                                             nv))
+        run("sudo rm {}".format(storedfile))
+        run("sudo mv {}/web_static/* {}".format(nv,
+                                                nv))
+        run("sudo rm -rf {}/web_static".format(nv))
+        run("sudo rm -rf /data/web_static/current")
+        run("sudo ln -s {} /data/web_static/current".format(nv))
 
-    print("New version deployed!")
-    return True
+        print("New version deployed!")
+        return True
+
+    return False
