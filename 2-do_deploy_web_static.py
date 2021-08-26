@@ -8,7 +8,6 @@ env.hosts = ["35.231.46.212", "54.175.152.17"]
 env.user = "ubuntu"
 
 
-
 def do_pack():
     """
         Return the tgz file if was correctly
