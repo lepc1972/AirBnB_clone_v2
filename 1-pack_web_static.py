@@ -1,14 +1,21 @@
 #!/usr/bin/python3
-""".tgz file obtained from web_static dir"""
+""" fabric script to compress """
+from fabric.api import local
 from datetime import datetime
-from fabric.operations import local
 
 
 def do_pack():
+    """
+        Return the tgz file if was correctly
+        gernerated.
+    """
+
     local("mkdir -p versions")
-    r = local("tar -cvzf versions/web_static_{}.tgz web_static"
-              .format(datetime.strftime(datetime.now(), "%Y%m%d%H%M%S")),
-              capture=True)
-    if r.failed:
+    date = datetime.now().strftime("%Y%m%d%H%M%S")
+    file_path = "versions/web_static_{}.tgz".format(date)
+    t_gzip_archive = local("tar -cvzf {} web_static".format(file_path))
+
+    if t_gzip_archive.succeeded:
+        return file_path
+    else:
         return None
-    return r
