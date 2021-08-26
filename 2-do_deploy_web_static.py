@@ -14,7 +14,6 @@ def do_pack():
         Return the tgz file if was correctly
         gernerated.
     """
-
     local("mkdir -p versions")
     date = datetime.now().strftime("%Y%m%d%H%M%S")
     file_path = "versions/web_static_{}.tgz".format(date)
