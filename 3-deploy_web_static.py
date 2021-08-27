@@ -52,6 +52,7 @@ def do_deploy(archive_path):
 
     return False
 
+
 def deploy():
     """creates and distributes files in our web 01-02"""
     f_path = do_pack()
