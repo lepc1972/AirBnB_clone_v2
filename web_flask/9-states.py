@@ -13,7 +13,7 @@ app = Flask(__name__)
 def states_one(id=None):
     states = storage.all(State)
     if id:
-        key = '{}.{}'.format(State, id)
+        key = 'State.{}'.format(id)
         if key in states:
             states = states[key]
         else:
